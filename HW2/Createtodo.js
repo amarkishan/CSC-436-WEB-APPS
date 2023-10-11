@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function CreateTodo({ user,settodos, todos }) {
+export default function CreateTodo({ user,handleaddtodo, todos }) {
     const [title, setTitle] = useState('');
     const [description, setdescription] = useState('');
 
@@ -17,7 +17,7 @@ export default function CreateTodo({ user,settodos, todos }) {
             dateCreated: new Date(Date.now()).toLocaleString(),
             datecompleted:new Date(Date.now()).toLocaleString()
         };
-        settodos([newTodo,...todos]);
+        handleaddtodo(newTodo);
         
     
       
