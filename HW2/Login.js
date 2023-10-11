@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-function Login({setuser})
+import App from "./App";
+function Login({dispatchuser})
 {
     const [username,setUsername] =useState('')
     const handleUsername=(e) =>
@@ -8,7 +8,8 @@ function Login({setuser})
        setUsername(e.target.value)
     }
     return(
-        <form onSubmit={e => { e.preventDefault(); setuser(username);}}>
+        <form onSubmit={e => { e.preventDefault(); 
+        dispatchuser({type:"LOGIN",username}); }}>
             <label htmlFor="login-username">Username:</label>
             <input type="text" name="login-username" id="login-username" value={username} onChange={handleUsername}/>
             <label htmlFor="login-password">Password:</label>

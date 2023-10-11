@@ -1,6 +1,6 @@
 import { useState } from "react"
-
-export default function Register({setuser})
+import App from "./App"
+export default function Register({dispacthuser})
 {
     const [username,setUsername]=useState('')
     const [password,setPassword]=useState('')
@@ -9,7 +9,7 @@ export default function Register({setuser})
     const handlePassword = (e) => {setPassword(e.target.value)}
 
     return(
-        <form onSubmit={e=>{e.preventDefault(); setuser(username)}}>
+        <form onSubmit={e=>{e.preventDefault(); dispacthuser({type:"REGISTER",username});}}>
             <label htmlFor="register-username">Username:</label>
             <input type="text" name="register-username" id="register-username" value={username} onChange={handleUsername}/>
             <label htmlFor="login-password">Password:</label>

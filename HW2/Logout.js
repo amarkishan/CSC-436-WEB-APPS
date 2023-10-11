@@ -1,8 +1,10 @@
-function Logout({user,setuser})
+import { type } from "@testing-library/user-event/dist/type";
+import App from "./App";
+function Logout({user,dispatchuser})
 {
     const handleClick=(e)=>
     {
-        setuser('')
+        dispatchuser({type:"LOGOUT"})
     }
     return(
      <form>
