@@ -1,16 +1,18 @@
 import Todo from './Todo';
-import { v4 as uuidv4 } from 'uuid';
-export default function Todolist({todos})
+
+export default function Todolist({todos,dispatch})
 {
     return(
         
             <div>
-            
-                { 
-                    todos.map((t,i) => (<Todo {...t} key={uuidv4()} />)) 
-                }    
-            
+            { 
+              todos.map((t) => (
+                <div key={t.id}>
+                    <Todo {...t} dispatch={dispatch}/>
+                    <button onClick={(e) => {
+                        dispatch({type:"DELETE_TODO", id: t.id})}}>Delete</button>
+               </div>))
+            }    
             </div>
-        
-    )
+        )
 }

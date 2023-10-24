@@ -1,15 +1,18 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function CreateTodo({ user,handleaddtodo, todos }) {
     const [title, setTitle] = useState('');
     const [description, setdescription] = useState('');
 
-    const handleTitle = (e) => setTitle(e.target.value);
+    const handleTitle = (e) => {setTitle(e.target.value)};
     const handleContent = (e) => setdescription(e.target.value);
 
     const handleSubmit = (e) => {
+       
         e.preventDefault();
         const newTodo = {
+            id:uuidv4(),
             title,
             description,
             author: user,
@@ -17,7 +20,11 @@ export default function CreateTodo({ user,handleaddtodo, todos }) {
             dateCreated: new Date(Date.now()).toLocaleString(),
             datecompleted:new Date(Date.now()).toLocaleString()
         };
+        console.log("this is working");
         handleaddtodo(newTodo);
+        setTitle('');
+        setdescription('');
+        
         
     
       
@@ -34,7 +41,7 @@ export default function CreateTodo({ user,handleaddtodo, todos }) {
                 <label htmlFor="todo-content">description:</label>
                 <input type="text" name="todo-content" id="todo-content" value={description} onChange={handleContent} />
             </div>
-            <input type="submit" value="Add Todo" disabled={title.length===0 || description.length===0 || !user}/>
+            <input type="submit" value="Add Todo" disabled={title.length===0 || description.length===0 }/>
         </form>
     )
 }
