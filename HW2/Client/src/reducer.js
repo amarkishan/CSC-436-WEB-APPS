@@ -40,7 +40,7 @@ function TodoReducer(state, action) {
             if (todo.id === action.id) {
                 return {
                     ...todo,
-                    completed: action.completed, // Update the completed state
+                    completed: action.completed,
                     datecompleted: action.completed ? new Date().toLocaleString() : todo.datecompleted // Update the date if completed
                     };
                 }
