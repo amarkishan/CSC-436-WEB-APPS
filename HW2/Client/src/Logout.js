@@ -1,10 +1,10 @@
 import { type } from "@testing-library/user-event/dist/type";
 import App from "./App";
-function Logout({user,dispatchuser})
+function Logout({user,dispatch})
 {
     const handleClick=(e)=>
     {
-        dispatchuser({type:"LOGOUT"})
+        dispatch({type:"LOGOUT"})
     }
     return(
      <form>

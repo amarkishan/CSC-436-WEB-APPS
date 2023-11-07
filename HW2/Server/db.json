@@ -1,0 +1,48 @@
+{
+  "todos": [
+    {
+      "title": "Buy groceries",
+      "description": "Milk, Bread, Eggs",
+      "author": "John Doe",
+      "completed": false,
+      "datecreated": "04/10/2023",
+      "datecompleted": "",
+      "id": 1
+    },
+    {
+      "title": "Finish React project",
+      "description": "Implement final features and deploy",
+      "author": "Alice Johnson",
+      "completed": false,
+      "datecreated": "04/09/2023",
+      "datecompleted": "",
+      "id": 2
+    },
+    {
+      "title": "Attend gym",
+      "description": "Leg day workout at 5pm",
+      "author": "Jane Smith",
+      "completed": false,
+      "datecreated": "04/09/2023",
+      "datecompleted": "",
+      "id": 3
+    }
+  ],
+  "users": [
+    {
+      "email": "amar.vaka@outlook.com",
+      "password": "$2a$10$U/5zMK0BrfyzI1FdA4nmt.SeANspQMsHGHtJWrduFp2AjfOmzbKOK",
+      "id": 1
+    },
+    {
+      "email": "amar.test@gmail.com",
+      "password": "$2a$10$UAIzIGO8p5eUvXiI8.fE5.Kae/U97BiKOYPY.kJgmjL.8bufgzMkC",
+      "id": 2
+    },
+    {
+      "email": "amarsammy@outlook.com",
+      "password": "$2a$10$CJiRVfQf0UJv3eNMfey2IeQVC7W19/EhQTe8glamQGBOwE4g3sjKG",
+      "id": 3
+    }
+  ]
+}
