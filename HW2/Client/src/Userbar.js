@@ -11,14 +11,14 @@ export default function UserBar()
 
     if(user)
     {
-        return <Logout user={user} dispatch={dispatch}/>
+        return <Logout/>
     }
     else
     {
         return(
             <div>
                 <Login dispatch={dispatch}/>
-                <Register dispatch={dispatch}/> 
+                <Register/> 
             </div>
         )
     }

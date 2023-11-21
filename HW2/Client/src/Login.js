@@ -1,63 +1,74 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useResource } from "react-request-hook";
-
-function Login({ dispatch }) {
+export default function Login({ dispatch }) {
+  const [username, setUsername] = useState("");
   const [loginFailed, setLoginFailed] = useState(false);
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState("");
+
   const [user, login] = useResource((username, password) => ({
-    url: "/login",
+    url: "/auth/login",
     method: "post",
-    data: { email: username, password },
+    data: { username, password },
   }));
 
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
+ 
 
   useEffect(() => {
-    if (user?.data) {
-      // Assuming that the server will return the email in the data if login is successful.
-      dispatch({ type: "LOGIN", username: user.data.user.email });
-      setLoginFailed(false);
-    } else if (user?.error) {
-      // Handle the login failure here.
-      setLoginFailed(true);
+    if (user && user.isLoading === false && (user.data || user.error)) {
+      //console.log("User Data:", user.data);
+      if (user.error) {
+        setLoginFailed(true);
+      } else {
+        setLoginFailed(false);
+        dispatch({
+          type: "LOGIN",
+          username: user.data.username,
+          access_token: user.data.access_token,
+        });
+      }
     }
-  }, [user, dispatch]);
+  }, [user]);
+
+  function handleUsername(evt) {
+    setUsername(evt.target.value);
+  }
+
+  function handlePassword(evt) {
+    setPassword(evt.target.value);
+  }
+
   return (
     <>
-      
-      <form onSubmit={e => { e.preventDefault(); login(username, password); }}>
+      {loginFailed && (
+        <span style={{ color: "red" }}>Invalid username or password</span>
+      )}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          // setUser(username);
+          login(username, password);
+          //dispatchUser({ type: "LOGIN", username });
+        }}
+      >
         <label htmlFor="login-username">Username:</label>
-        <input 
-          type="text" 
-          name="login-username" 
-          id="login-username" 
-          value={username} 
-          onChange={handleUsername} 
+        <input
+          type="text"
+          name="login-username"
+          id="login-username"
+          value={username}
+          onChange={handleUsername}
         />
         <label htmlFor="login-password">Password:</label>
-        <input 
-          type="password" 
-          name="login-password" 
-          id="login-password" 
-          value={password} 
-          onChange={handlePassword} 
+        <input
+          type="password"
+          value={password}
+          onChange={handlePassword}
+          name="login-username"
+          id="login-username"
         />
-        <input 
-          type="submit" 
-          value="Login" 
-          disabled={username.length === 0 || password.length === 0} 
-        />
-        {loginFailed && <span style={{ color: "red" }}>Invalid username or password</span>}
+        ;
+        <input type="submit" value="Login" disabled={username.length === 0} />
       </form>
     </>
   );
 }
-
-export default Login;

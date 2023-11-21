@@ -9,40 +9,57 @@ import { useResource } from 'react-request-hook';
 function App() 
 {
  
-  const [todoresponse,gettodos] = useResource(() => ({
-    url:"/todos",
-    method:"get",
-  }));  
+  const [state, dispatch] = useReducer(appReducer, {
+    user: "",
+    todos: [],
+  });
 
-  useEffect(gettodos,[]);
-  useEffect(() =>
-  {
-    if(todoresponse && todoresponse.data)
-    {
-      dispatch({type:"FETCH_TODOS",todos:todoresponse.data});
+  const { user, todos } = state;
+
+  // const [theme, setTheme] = useState({
+  //   primaryColor: "orange",
+  //   secondaryColor: "purple",
+  // });
+
+   const [todoResponse, gettodos] = useResource(() => ({
+
+     url: "/todo",
+     method: "get",
+    headers: { Authorization: `${state?.user?.access_token}` },
+  }));
+
+  useEffect(() => {
+    gettodos();
+  }, [state?.user?.access_token]);
+  useEffect(() => {
+    if (
+      todoResponse &&
+      todoResponse.isLoading === false &&
+      todoResponse.data
+    ) {
+      dispatch({
+        type: "FETCH_TODOS",
+        todos: todoResponse.data.reverse(),
+      });
     }
-  },[todoresponse]);
+  }, [todoResponse]);
+
+  useEffect(() => {
+    if (user) {
+      document.title = `${user.username}’s Blog`;
+    } else {
+      document.title = "Blog";
+    }
+  }, [user]);
+
   
 
-    const [state, dispatch] = useReducer(appReducer, {
-      user: "",
-      todos: [],
-    });
-    
-    const {user} = state;
-
-    // const handleaddtodo = (newtodo) => 
-    // {
-      
-    //   dispatch({type:"CREATE_TODO", ...newtodo});
-      
-    // }
   return (
     <div>
       
       <StateContext.Provider value={{ state, dispatch }}>
         <Userbar/>
-        {user?<Createtodo/>:null}
+        <Createtodo/>
         <Todolist/>
       </StateContext.Provider>
        
